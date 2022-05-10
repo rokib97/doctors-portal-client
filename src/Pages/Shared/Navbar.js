@@ -56,7 +56,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div class="navbar-end hidden lg:flex">
-        <ul class="menu menu-horizontal p-0">{menuItems}</ul>
+        <ul class="menu menu-horizontal p-0 gap-1">{menuItems}</ul>
       </div>
     </div>
   );
