@@ -14,7 +14,7 @@ const Banner = () => {
             porro nisi qui et voluptate modi soluta esse doloremque nesciunt
             mollitia illo illum tenetur.
           </p>
-          <button class="btn btn-primary text-uppercase text-white font-bold bg-gradient-to-r from-secondary to-primary ">
+          <button class="btn btn-primary text-uppercase text-white font-bold bg-gradient-to-r from-secondary to-primary">
             Get Started
           </button>
         </div>
