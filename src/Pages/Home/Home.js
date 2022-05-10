@@ -4,17 +4,21 @@ import Info from "./Info";
 import MakeAppoinment from "./MakeAppoinment";
 import Services from "./Services";
 import Terms from "./Terms";
+import Testimonials from "./Testimonials";
 
 const Home = () => {
   return (
     <>
-      <div className="p-12">
+      <div className="lg:p-12">
         <Banner></Banner>
         <Info></Info>
         <Services></Services>
         <Terms></Terms>
       </div>
       <MakeAppoinment></MakeAppoinment>
+      <div className="lg:p-12 p-8">
+        <Testimonials></Testimonials>
+      </div>
     </>
   );
 };
