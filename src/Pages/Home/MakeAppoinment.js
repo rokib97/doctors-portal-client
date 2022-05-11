@@ -1,7 +1,7 @@
 import React from "react";
 import appointment from "../../assets/images/appointment.png";
 import doctor from "../../assets/images/doctor.png";
-import PrimaryButton from "../../PrimaryButton/PrimaryButton";
+import PrimaryButton from "../Shared/PrimaryButton";
 
 const MakeAppoinment = () => {
   return (
@@ -25,7 +25,7 @@ const MakeAppoinment = () => {
           look like readable English. Many desktop publishing packages and web
           page
         </p>
-        <PrimaryButton />
+        <PrimaryButton>GET STARTED</PrimaryButton>
       </div>
     </section>
   );

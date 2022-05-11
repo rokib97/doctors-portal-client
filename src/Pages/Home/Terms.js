@@ -1,5 +1,5 @@
 import treatment from "../../assets/images/treatment.png";
-import PrimaryButton from "../../PrimaryButton/PrimaryButton";
+import PrimaryButton from "../Shared/PrimaryButton";
 const Terms = () => {
   return (
     <div className="hero py-28">
@@ -21,7 +21,7 @@ const Terms = () => {
             here', making it look like readable English. Many desktop publishing
             packages and web page
           </p>
-          <PrimaryButton></PrimaryButton>
+          <PrimaryButton>GET STARTED</PrimaryButton>
         </div>
       </div>
     </div>
