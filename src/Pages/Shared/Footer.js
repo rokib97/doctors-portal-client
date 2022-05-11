@@ -10,7 +10,7 @@ const Footer = () => {
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}
-      className="p-10"
+      className="p-10 mt-20"
     >
       <div className="footer">
         <div>
@@ -67,7 +67,7 @@ const Footer = () => {
                 placeholder="username@site.com"
                 className="input input-bordered w-full pr-16"
               />
-              <button className="btn btn-primary absolute top-0 right-0 rounded-l-none bg-gradient-to-r from-secondary to-primary">
+              <button className="btn btn-primary absolute top-0 right-0 rounded-l-none bg-gradient-to-r from-secondary to-primary text-white font-bold">
                 Subscribe
               </button>
             </div>
