@@ -2,7 +2,7 @@ import treatment from "../../assets/images/treatment.png";
 import PrimaryButton from "../../PrimaryButton/PrimaryButton";
 const Terms = () => {
   return (
-    <div className="hero min-h-screen">
+    <div className="hero py-28">
       <div className="hero-content flex-col lg:flex-row">
         <img
           src={treatment}
