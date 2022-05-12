@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     formState: { errors },
@@ -22,6 +25,11 @@ const Login = () => {
     signInWithEmailAndPassword(data.email, data.password);
   };
   let signInError;
+  useEffect(() => {
+    if (user || googleUser) {
+      navigate(from, { replace: true });
+    }
+  }, [from, navigate, user, googleUser]);
   if (loading || googleLoading) {
     return <Loading></Loading>;
   }
@@ -32,9 +40,7 @@ const Login = () => {
       </p>
     );
   }
-  if (user || googleUser) {
-    // console.log(user);
-  }
+
   return (
     <div className="h-screen flex justify-center items-center">
       <div className="card w-96 bg-base-100 shadow-xl">
