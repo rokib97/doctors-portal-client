@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
+  useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
@@ -8,12 +9,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 const Login = () => {
+  const emailRef = useRef("");
   const navigate = useNavigate();
   const location = useLocation();
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
   const from = location.state?.from?.pathname || "/";
   const {
     register,
@@ -21,7 +24,7 @@ const Login = () => {
     handleSubmit,
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data.email);
     signInWithEmailAndPassword(data.email, data.password);
   };
   let signInError;
@@ -30,7 +33,7 @@ const Login = () => {
       navigate(from, { replace: true });
     }
   }, [from, navigate, user, googleUser]);
-  if (loading || googleLoading) {
+  if (loading || googleLoading || sending) {
     return <Loading></Loading>;
   }
   if (error || googleError) {
@@ -40,6 +43,12 @@ const Login = () => {
       </p>
     );
   }
+  const resetPassword = async () => {
+    const email = emailRef.current.value;
+    if (email) {
+      await sendPasswordResetEmail(email);
+    }
+  };
 
   return (
     <div className="h-screen flex justify-center items-center">
@@ -63,6 +72,7 @@ const Login = () => {
                   },
                 })}
                 type="email"
+                ref={emailRef}
                 placeholder="Your Email"
                 className="input input-bordered w-full max-w-xs"
               />
@@ -98,6 +108,18 @@ const Login = () => {
                 placeholder="Password"
                 className="input input-bordered w-full max-w-xs"
               />
+              <p>
+                Forgot Password?
+                <span>
+                  <Link
+                    onClick={resetPassword}
+                    className="text-secondary"
+                    to="/login"
+                  >
+                    Reset Password
+                  </Link>
+                </span>
+              </p>
               <label className="label">
                 {errors.password?.type === "required" && (
                   <span className="label-text-alt text-red-500">
