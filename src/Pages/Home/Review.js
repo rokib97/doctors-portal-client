@@ -2,7 +2,6 @@ import React from "react";
 
 const Review = ({ review }) => {
   const { name, ureview, location, img } = review;
-  console.log(review);
   return (
     <div className="card lg:max-w-lg bg-base-100 shadow-xl">
       <div className="card-body">

@@ -14,7 +14,7 @@ const MakeAppoinment = () => {
       <div className="flex-1">
         <img className="mt-[-200px] hidden lg:block" src={doctor} alt="" />
       </div>
-      <div className="flex-1 text-white p-8">
+      <div className="flex-1 text-white p-6">
         <h3 className="text-secondary text-2xl font-bold">Appointment</h3>
         <h2 className="text-4xl mt-2">Make an appointment Today</h2>
         <p className="py-4">
