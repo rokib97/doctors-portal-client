@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
@@ -9,11 +9,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 const Login = () => {
-  const emailRef = useRef("");
   const navigate = useNavigate();
   const location = useLocation();
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
+  const [email, setEmail] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
@@ -44,9 +44,9 @@ const Login = () => {
     );
   }
   const resetPassword = async () => {
-    const email = emailRef.current.value;
-    if (email) {
-      await sendPasswordResetEmail(email);
+    const emailValue = email.target.value;
+    if (emailValue) {
+      await sendPasswordResetEmail(emailValue);
     }
   };
 
@@ -70,9 +70,9 @@ const Login = () => {
                     value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
                     message: "Provide a valid Email",
                   },
+                  onBlur: (e) => setEmail(e),
                 })}
                 type="email"
-                ref={emailRef}
                 placeholder="Your Email"
                 className="input input-bordered w-full max-w-xs"
               />
