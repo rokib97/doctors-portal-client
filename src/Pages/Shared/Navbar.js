@@ -26,6 +26,11 @@ const Navbar = () => {
       <li>
         <NavLink to="/about">About</NavLink>
       </li>
+      {user && (
+        <li>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+        </li>
+      )}
       <li>
         {user ? (
           <button onClick={logout} className="btn btn-ghost capitalize">
@@ -68,7 +73,7 @@ const Navbar = () => {
           Doctors Portal
         </Link>
       </div>
-      <div className="navbar-end hidden lg:flex">
+      <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0 gap-1">{menuItems}</ul>
       </div>
     </div>
