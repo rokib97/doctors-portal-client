@@ -1,3 +1,4 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,8 @@ const MyAppoinment = () => {
       })
         .then((res) => {
           if (res.status === 401 || res.ststus === 403) {
+            signOut(auth);
+            localStorage.removeItem("accessToken");
             navigate("/");
           }
           return res.json();
