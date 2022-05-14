@@ -1,21 +1,22 @@
 import React from "react";
-import { useNavigation } from "react-day-picker";
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
+import useToken from "../../hooks/useToken";
 import Loading from "../Shared/Loading";
 const Signup = () => {
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+  const [token] = useToken(user || googleUser);
   const {
     register,
     formState: { errors },
@@ -35,14 +36,14 @@ const Signup = () => {
       </p>
     );
   }
-  if (user || googleUser) {
+  if (token) {
     console.log(user);
+    navigate("/appoinment");
   }
   const onSubmit = async (data) => {
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
     console.log("User Updated");
-    navigate("/appoinment");
   };
   return (
     <div className="h-screen flex justify-center items-center">
