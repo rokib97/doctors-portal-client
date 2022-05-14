@@ -1,15 +1,16 @@
 import React from "react";
+import { useNavigation } from "react-day-picker";
 import {
   useCreateUserWithEmailAndPassword,
   useSignInWithGoogle,
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 const Signup = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigation();
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const [createUserWithEmailAndPassword, user, loading, error] =
