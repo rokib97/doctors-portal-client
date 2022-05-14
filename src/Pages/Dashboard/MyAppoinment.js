@@ -7,7 +7,12 @@ const MyAppoinment = () => {
   const [appointments, setAppoinments] = useState([]);
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/booking?patient=${user.email}`)
+      fetch(`http://localhost:5000/booking?patient=${user.email}`, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => setAppoinments(data));
     }
@@ -29,7 +34,7 @@ const MyAppoinment = () => {
           </thead>
           <tbody>
             {appointments.map((appoinment, index) => (
-              <tr>
+              <tr key={index}>
                 <th>{index + 1}</th>
                 <td>{appoinment.patientName}</td>
                 <td>{appoinment.treatment}</td>
