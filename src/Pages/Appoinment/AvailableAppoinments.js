@@ -16,15 +16,15 @@ const AvailableAppoinments = ({ date }) => {
     isLoading,
     refetch,
   } = useQuery(["available", formatedDate], () =>
-    fetch(`http://localhost:5000/available?date=${formatedDate}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://tranquil-earth-80495.herokuapp.com/available?date=${formatedDate}`
+    ).then((res) => res.json())
   );
   if (isLoading) {
     return <Loading />;
   }
   // useEffect(() => {
-  //   fetch(`http://localhost:5000/available?date=${formatedDate}`)
+  //   fetch(`https://tranquil-earth-80495.herokuapp.com/available?date=${formatedDate}`)
   //     .then((res) => res.json())
   //     .then((data) => setServices(data));
   // }, [formatedDate]);

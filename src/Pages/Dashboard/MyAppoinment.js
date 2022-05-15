@@ -10,12 +10,15 @@ const MyAppoinment = () => {
   const [appointments, setAppoinments] = useState([]);
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/booking?patient=${user.email}`, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      fetch(
+        `https://tranquil-earth-80495.herokuapp.com/booking?patient=${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => {
           if (res.status === 401 || res.ststus === 403) {
             signOut(auth);
@@ -33,8 +36,8 @@ const MyAppoinment = () => {
   return (
     <div>
       <h2 className="font-bold mb-4">Appoinment : {appointments?.length}</h2>
-      <div class="overflow-x-auto">
-        <table class="table table-compact w-full">
+      <div className="overflow-x-auto">
+        <table className="table table-compact w-full">
           <thead>
             <tr>
               <th></th>
