@@ -28,6 +28,7 @@ const AddDoctor = () => {
     const image = data.image[0];
     const formData = new FormData();
     formData.append("image", image);
+    console.log(formData);
     const url = `https://api.imgbb.com/1/upload?key=${imageStorageKey}`;
     fetch(url, {
       method: "POST",

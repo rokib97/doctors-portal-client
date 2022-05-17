@@ -4,6 +4,10 @@ import "react-day-picker/dist/style.css";
 import bg from "../../assets/images/bg.png";
 import chair from "../../assets/images/chair.png";
 const AppoinmentBanner = ({ date, setDate }) => {
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+  const disabledDays = [{ from: new Date(1000, 1, 1), to: yesterday }];
   return (
     <div
       style={{
@@ -20,6 +24,8 @@ const AppoinmentBanner = ({ date, setDate }) => {
         />
         <div>
           <DayPicker
+            defaultMonth={new Date()}
+            disabled={disabledDays}
             onDayClick={setDate}
             mode="single"
             selected={date}

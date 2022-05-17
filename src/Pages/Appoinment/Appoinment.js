@@ -5,6 +5,7 @@ import AvailableAppoinments from "./AvailableAppoinments";
 
 const Appoinment = () => {
   const [date, setDate] = useState(new Date());
+
   return (
     <>
       <AppoinmentBanner date={date} setDate={setDate}></AppoinmentBanner>
