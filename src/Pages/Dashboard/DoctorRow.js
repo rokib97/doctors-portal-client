@@ -1,34 +1,7 @@
 import React from "react";
-import Swal from "sweetalert2";
-const DoctorRow = ({ doctor, index, refetch }) => {
+const DoctorRow = ({ doctor, index, refetch, setDeleteDoctor }) => {
   const { name, specialty, img, email } = doctor;
-  const handleDelete = (email) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:5000/doctor/${email}`, {
-          method: "DELETE",
-          headers: {
-            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount) {
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
-              refetch();
-            }
-          });
-      }
-    });
-  };
+  console.log(email);
 
   return (
     <tr>
@@ -43,12 +16,13 @@ const DoctorRow = ({ doctor, index, refetch }) => {
       <td>{name}</td>
       <td>{specialty}</td>
       <td>
-        <button
-          onClick={() => handleDelete(email)}
+        <label
+          onClick={() => setDeleteDoctor(doctor)}
+          for="delete-confirm-modal"
           class="btn btn-xs btn-error"
         >
           Delete
-        </button>
+        </label>
       </td>
     </tr>
   );
