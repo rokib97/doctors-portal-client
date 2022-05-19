@@ -6,6 +6,7 @@ const CheckoutForm = ({ appoinment }) => {
   const elements = useElements();
   const [cardError, setCardError] = useState("");
   const [success, setSuccess] = useState("");
+  const [transactionId, setTransactionId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const { price, patient, patientName } = appoinment;
   // console.log(appoinment);
@@ -20,7 +21,7 @@ const CheckoutForm = ({ appoinment }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.clientSecret);
         if (data?.clientSecret) {
           setClientSecret(data.clientSecret);
         }
@@ -28,21 +29,25 @@ const CheckoutForm = ({ appoinment }) => {
   }, [price]);
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!stripe || !elements) {
       return;
     }
+
     const card = elements.getElement(CardElement);
-    if (card == null) {
+
+    if (card === null) {
       return;
     }
-    // Use your card Element with other Stripe.js APIs
+
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
-    setCardError(error?.message || "");
 
+    setCardError(error?.message || "");
     setSuccess("");
+
     // confirm card payment
     const { paymentIntent, error: intentError } =
       await stripe.confirmCardPayment(clientSecret, {
@@ -54,12 +59,11 @@ const CheckoutForm = ({ appoinment }) => {
           },
         },
       });
-
     if (intentError) {
       setCardError(intentError?.message);
     } else {
       setCardError("");
-
+      setTransactionId(paymentIntent.id);
       console.log(paymentIntent);
       setSuccess("Congrats! Your payment is completed.");
     }
@@ -93,7 +97,15 @@ const CheckoutForm = ({ appoinment }) => {
         </button>
       </form>
       {cardError && <p className="text-red-500">{cardError}</p>}
-      {success && <p className="text-success">{success}</p>}
+      {success && (
+        <div className="text-success">
+          <p>{success}</p>
+          <p>
+            Your transaction Id:
+            <span className="text-orange-500 font-bold">{transactionId}</span>
+          </p>
+        </div>
+      )}
     </>
   );
 };
