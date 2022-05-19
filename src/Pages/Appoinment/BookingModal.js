@@ -23,7 +23,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
       patientName: user.displayName,
       phone: event.target.phone.value,
     };
-    fetch("http://localhost:5000/booking", {
+    fetch("https://tranquil-earth-80495.herokuapp.com/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
